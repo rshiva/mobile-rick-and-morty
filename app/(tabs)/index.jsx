@@ -4,11 +4,13 @@ import SearchResult from '@/components/SearchResult'
 import { actionCreators, initialState, reducer } from '../../hooks/CharacterReducer'
 import { useState, useReducer, useEffect, useCallback } from 'react'
 import HomePageCharacters from '@/components/HomePageCharacters'
+import { useFocusEffect } from '@react-navigation/native';
 
 const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [state, dispatch] = useReducer(reducer, initialState)
   const [randomCharacters, setRandomCharacters] = useState([]);
+
   
 
   const handleSearch = useCallback(async (text) => {
@@ -37,7 +39,7 @@ const Home = () => {
     return () => clearTimeout(timeoutId);
   }, [searchTerm, handleSearch]);
 
-  useEffect(()=>{
+  
     function getRandomArray(length, max) {
         const arr = [];
         while (arr.length < length) {
@@ -49,15 +51,21 @@ const Home = () => {
         return arr;
     }
 
-    const randomArray = getRandomArray(9, 826);
-
-    async function fetchRandomCharacters(){
+    
+    const fetchRandomCharacters = useCallback(async () => {
+     const randomArray = getRandomArray(9, 826);
         const response = await fetch(`https://rickandmortyapi.com/api/character/${randomArray}`)
         const data = await response.json();
         setRandomCharacters(data);
-    }
-    fetchRandomCharacters();
-  },[])
+   },[])
+    
+
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchRandomCharacters(); // Fetch characters when the screen is focused
+    }, [fetchRandomCharacters])
+  );
 
   const { loading, error, results } = state || initialState;
 
@@ -80,7 +88,7 @@ const Home = () => {
       <View className="flex-1">
         {loading ? (
           <View className="flex-1 justify-center items-center">
-            <ActivityIndicator animating={true} />
+            <ActivityIndicator animating={true} size="large" color="indigo" />
           </View>
         ) : error ? (
           <View className="flex-1 justify-center items-center">
@@ -95,7 +103,7 @@ const Home = () => {
                 <View className="items-center">
                   <Text className="font-medium text-xl mb-2">Here are some interesting characters</Text>
                 </View>
-                <View className="flex flex-row flex-wrap justify-between">
+                <View className="flex-1 flex-row flex-wrap  justify-between">
                     <HomePageCharacters randomCharacters={randomCharacters} />
                 </View>
                 </>

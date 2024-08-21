@@ -50,7 +50,6 @@ export async function fetchAllCharacters() {
   const db = await openDatabase();
   try {
     const result = await db.getAllAsync('SELECT * FROM characters order by id desc ');
-    console.log("Fetched data:", result);
     return result;
   } catch (error) {
     console.error('Error fetching characters:', error);

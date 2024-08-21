@@ -18,7 +18,7 @@ const CharacterProfile = ({ episodes }) => {
   function renderItem({ item }) {
     return (
       <View key={item.id} className="p-2 ">
-        <View key={item.id + Crypto.randomUUID()} className=" border-t-[1px] border-sky-500 p-3 rounded-md">
+        <View key={item.id + Crypto.randomUUID()} className=" border-b-[1px] border-sky-500 p-3 rounded-md">
           <Text className="text-lg">{item.name}</Text>
           <Text className="text-sm">{item.air_date}</Text>
         </View>
@@ -32,7 +32,7 @@ const CharacterProfile = ({ episodes }) => {
       <FlatList
         data={Array.isArray(episodesData) ? episodesData : [episodesData]}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id + Crypto.randomUUID()}
       />
     </View>
   )

@@ -9,9 +9,9 @@ const CharacterData = ({ result, page, onCharacterDeleted }) => {
       <View className="flex flex-row justify-between w-[90%]" key={result.id}>
       <Link href={{
         pathname: '/episodes/[id]',
-          params: { id: page === "saved" ? result.character_id : result.id},
+        params: { id: page === "saved" ? result.character_id : result.id},
       }}>
-        <View className="w-[100px] h-[100px]" key={result.id}>
+        <View className="w-[100px] h-[100px] shadow shadow-gray-600" key={result.id}>
           <Image 
             source={{ uri: result.image }}
               className="w-full h-full rounded-full"

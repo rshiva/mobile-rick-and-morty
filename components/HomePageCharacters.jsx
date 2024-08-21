@@ -8,7 +8,7 @@ const HomePageCharacters = ({ randomCharacters }) => {
     <>
         {randomCharacters.map((character) => (
             
-            <View key={character.id} className="w-1/3 p-2 items-center">
+            <View key={character.id} className="w-1/3 p-2 items-center shadow shadow-gray-600">
                 <Link href={{
                     pathname: '/episodes/[id]',
                     params: { id: character.id},

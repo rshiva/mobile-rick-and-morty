@@ -32,11 +32,11 @@ const Saved = () => {
  }, [fetchSavedCharacters]);
   
   return (
-    <View className="flex-1 bg-[#DFE7FD]">
+    <View className="flex-1 bg-[#DFE7FD] pt-2">
       <FlatList
         data={characters}
         renderItem={({item}) => (
-            <View key={item.id} className="border-b-[1.5px] border-indigo-500 p-2">
+            <View key={item.id} className="border-b-[1px] border-sky-500 p-2">
             <CharacterData 
               result={item} 
               page="saved"
